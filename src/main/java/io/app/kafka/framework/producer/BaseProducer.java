@@ -43,6 +43,7 @@ public class BaseProducer<T> {
         ListenableFuture<SendResult<T, T>> future = kafkaTemplate.send(inTopic, key, inJson);
 
         // This send method is asynchronous hence we can listen to the topic on success or failure.
+        // This Kafka producer method sends acknowledgement once the data is successfully received by the Kafka Topic
         future.addCallback(new ListenableFutureCallback<SendResult<T, T>>() {
             @Override
             public void onFailure(Throwable ex) {
@@ -51,7 +52,12 @@ public class BaseProducer<T> {
 
             @Override
             public void onSuccess(SendResult<T, T> result) {
-                _logger.info("#### Message sent to Topic :: -> " + result.toString());
+                _logger.info("#### Message sent to Topic :: -> " +
+                        "\nProducer Record : -> " + result.getProducerRecord().toString() +
+                        "\nRecord : -> " + result.getRecordMetadata() +
+                        "\nTopic : -> " + result.getRecordMetadata().topic() +
+                        "\nPartition : -> " + result.getRecordMetadata().offset() +
+                        "\nOffset : -> " + result.getRecordMetadata().offset());
             }
         });
         return (T) JsonUtil.toJson("{Topic:" + inTopic + ",Message: " + inJson + "}");
