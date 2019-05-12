@@ -1,0 +1,46 @@
+POST http://localhost:8281/controller
+Content-Type: application/json
+
+{
+  "key": "1",
+  "firstName": "Arpit",
+  "lastName": "Srivastava",
+  "age": 22,
+  "sex": "M",
+  "job": "Software Developer"
+}
+
+###
+
+POST http://localhost:8281/controller
+Content-Type: application/json
+
+{
+  "key": "2",
+  "firstName": "Prabal",
+  "lastName": "Rastogi",
+  "age": 23,
+  "sex": "M",
+  "job": "Software Developer"
+}
+
+###
+
+POST http://localhost:8281/controller
+Content-Type: application/json
+
+{
+  "key": "3",
+  "firstName": "Saharsh",
+  "lastName": "Rastogi",
+  "age": 23,
+  "sex": "M",
+  "job": "IIM Udaipur"
+}
+
+###
+
+GET http://localhost:8281/controller
+Content-Type: application/json
+
+###

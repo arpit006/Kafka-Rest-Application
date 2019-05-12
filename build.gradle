@@ -1,0 +1,28 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'io.app'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.2.5.RELEASE'
+//	compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.2.0'
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.2.0'
+
+	compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.2.0'
+
+	compile('org.projectlombok:lombok:1.18.2')
+	annotationProcessor('org.projectlombok:lombok:1.18.2')
+}
