@@ -6,14 +6,17 @@ import io.app.kafka.framework.util.JsonUtil;
 import java.util.Map;
 
 /**
+ * Parse the Json.
+ *
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
 public class JsonParser<T> {
 
-    private JsonUtil jsonUtil;
 
     /**
      * this is a method which parses json.
+     * This method needs to be manipulated in the way the data is passed.
+     * For demo purpose only key needs to be parsed from JSON
      * @param inJson
      * @param <T>
      * @return
