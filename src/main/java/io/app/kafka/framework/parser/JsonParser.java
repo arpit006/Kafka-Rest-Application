@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
-public class JsonParser<T> {
+public class JsonParser {
 
 
     /**
