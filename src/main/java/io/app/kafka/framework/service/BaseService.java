@@ -8,15 +8,15 @@ import io.app.kafka.framework.producer.BaseProducer;
  *
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
-public class BaseService<T> {
+public class BaseService<K, V> {
 
     private final
-    BaseProducer<T> baseProducer;
+    BaseProducer<K, V> baseProducer;
 
     private final
-    BaseConsumer<T> baseConsumer;
+    BaseConsumer<K, V> baseConsumer;
 
-    public BaseService(BaseProducer<T> baseProducer, BaseConsumer<T> baseConsumer) {
+    public BaseService(BaseProducer<K, V> baseProducer, BaseConsumer<K, V> baseConsumer) {
         this.baseProducer = baseProducer;
         this.baseConsumer = baseConsumer;
     }
@@ -27,17 +27,18 @@ public class BaseService<T> {
      * @param inJson value
      * @return Return Value
      */
-    public T postToTopic(T inJson) {
+    public V postToTopic(V inJson) {
         return baseProducer.postMessageToTopic(inJson);
     }
 
     /**
      * Consumes from the Topic via Kafka Consumer.
+     *
      * @return Return Message.
      */
-    public T consumeFromTopic() {
+    public V consumeFromTopic() {
         baseConsumer.consume();
-        return (T) "Successfully Consumed Data from Topic";
+        return (V) "Successfully Consumed Data from Topic";
     }
 
 }

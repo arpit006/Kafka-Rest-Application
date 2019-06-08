@@ -45,6 +45,8 @@ public class ConsumerConfiguration {
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoKeyOffsetReset);
         properties.setProperty(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "10000");
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100");
+        properties.setProperty(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, "100");
+        properties.setProperty(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, "100");
         return new KafkaConsumer<>(properties);
     }
 }

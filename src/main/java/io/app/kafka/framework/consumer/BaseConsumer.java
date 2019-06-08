@@ -11,16 +11,16 @@ import java.util.Collections;
 /**
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
-public class BaseConsumer<T> {
+public class BaseConsumer<K, V> {
 
     private static final Logger _logger = LoggerFactory.getLogger(BaseConsumer.class);
 
     private final String inTopic;
 
-    private final KafkaConsumer<T, T> consumer;
+    private final KafkaConsumer<K, V> consumer;
 
 
-    public BaseConsumer(KafkaConsumer<T, T> consumer, String inTopic) {
+    public BaseConsumer(KafkaConsumer<K, V> consumer, String inTopic) {
         this.inTopic = inTopic;
         this.consumer = consumer;
     }
@@ -31,7 +31,7 @@ public class BaseConsumer<T> {
     public void consume() {
         consumer.subscribe(Collections.singletonList(inTopic));
         while (true) {
-            ConsumerRecords<T, T> consumerRecords = consumer.poll(Duration.ofMillis(100));
+            ConsumerRecords<K, V> consumerRecords = consumer.poll(Duration.ofMillis(100));
             consumerRecords.forEach(t ->
                     _logger.info("#### Consuming from topic : " + t.topic() +
                             "\nPartition : " + t.partition() +

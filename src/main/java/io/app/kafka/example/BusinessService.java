@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
 @Service
-public class BusinessService extends BaseService<String> {
+public class BusinessService extends BaseService<String, String> {
 
     private final
     BusinessProducer businessProducer;

@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestBody;
  *
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
-public abstract class BaseController<T> {
+public abstract class BaseController<K, V> {
 
-    private BaseService<T> baseService;
+    private BaseService<K,V> baseService;
 
-    public BaseController(BaseService<T> baseService) {
+    public BaseController(BaseService<K, V> baseService) {
         this.baseService = baseService;
     }
 
     @PostMapping(value = "", produces = "application/json", consumes = "application/json")
-    public T postToTopic(@RequestBody T inJson) {
+    public V postToTopic(@RequestBody V inJson) {
         return baseService.postToTopic(inJson);
     }
 
     @GetMapping(value = "", consumes = "application/json", produces = "application/json")
-    public T consumeFromTopic() {
+    public V consumeFromTopic() {
         return baseService.consumeFromTopic();
     }
 }

@@ -16,42 +16,43 @@ import java.util.Map;
  *
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
-public class BaseProducer<T> {
+public class BaseProducer<K, V> {
 
     private static final Logger _logger = LoggerFactory.getLogger(BaseProducer.class);
     private final String inTopic;
-    private KafkaTemplate<T, T> kafkaTemplate;
+    private KafkaTemplate<K, V> kafkaTemplate;
 
-    public BaseProducer(KafkaTemplate<T, T> kafkaTemplate, String inTopic) {
+    public BaseProducer(KafkaTemplate<K, V> kafkaTemplate, String inTopic) {
         this.kafkaTemplate = kafkaTemplate;
         this.inTopic = inTopic;
     }
 
     /**
+     * `
      * This method will post value to Kafka Topic
      *
      * @param inJson The value to be posted into the topic
      */
-    public T postMessageToTopic(T inJson) {
+    public V postMessageToTopic(V inJson) {
         // Parse the json.
         Map<String, Object> t = JsonParser.parseJson(String.valueOf(inJson));
-        T key = (T) t.get("key");
+        K key = (K) t.get("key");
 
         _logger.info("#### Producing Message : " + inJson + "\nTopic : " + inTopic);
 
         // Using Kafka Producer with the Rest Template, by specifying the Topic, Key and value to be posted.
-        ListenableFuture<SendResult<T, T>> future = kafkaTemplate.send(inTopic, key, inJson);
+        ListenableFuture<SendResult<K, V>> future = kafkaTemplate.send(inTopic, key, inJson);
 
         // This send method is asynchronous hence we can listen to the topic on success or failure.
         // This Kafka producer method sends acknowledgement once the data is successfully received by the Kafka Topic
-        future.addCallback(new ListenableFutureCallback<SendResult<T, T>>() {
+        future.addCallback(new ListenableFutureCallback<SendResult<K, V>>() {
             @Override
             public void onFailure(Throwable ex) {
                 _logger.error("#### Kafka Producer Error :: -> " + ex.getMessage());
             }
 
             @Override
-            public void onSuccess(SendResult<T, T> result) {
+            public void onSuccess(SendResult<K, V> result) {
                 _logger.info("#### Message sent to Topic :: -> " +
                         "\nProducer Record : -> " + result.getProducerRecord().toString() +
                         "\nRecord : -> " + result.getRecordMetadata() +
@@ -60,6 +61,6 @@ public class BaseProducer<T> {
                         "\nOffset : -> " + result.getRecordMetadata().offset());
             }
         });
-        return (T) JsonUtil.toJson("{Topic:" + inTopic + ",Message: " + inJson + "}");
+        return (V) JsonUtil.toJson("{Topic:" + inTopic + ",Message: " + inJson + "}");
     }
 }
