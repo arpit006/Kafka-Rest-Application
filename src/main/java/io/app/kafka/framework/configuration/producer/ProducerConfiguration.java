@@ -38,6 +38,10 @@ public class ProducerConfiguration {
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
+        // Acknowledgement
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+        // Make Kafka Producer Idempotent
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
         return new DefaultKafkaProducerFactory<>(properties);
     }
 

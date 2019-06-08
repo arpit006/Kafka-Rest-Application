@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/controller")
-public class BusinessController extends BaseController<String> {
+public class BusinessController extends BaseController<String, String> {
 
     private final
     BusinessService businessService;

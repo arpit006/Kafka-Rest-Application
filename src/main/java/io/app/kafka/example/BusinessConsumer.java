@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
  * @author <a href = "mailto: iarpitsrivastava06@gmail.com"> Arpit Srivastava</a>
  */
 @Component
-public class BusinessConsumer extends BaseConsumer<String> {
+public class BusinessConsumer extends BaseConsumer<String, String> {
 
     private static String inTopic;
 
     static {
-        inTopic = "business_topic_1";
+        inTopic = "business_topic_2";
     }
 
     private final KafkaConsumer<String, String> consumer;
